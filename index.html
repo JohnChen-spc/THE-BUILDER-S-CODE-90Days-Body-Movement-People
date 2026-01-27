@@ -37,7 +37,7 @@
             --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.2);
             --shadow-hard: 0 8px 30px rgba(0, 0, 0, 0.3);
             --shadow-gold: 0 0 25px rgba(217, 159, 32, 0.15);
-            --shadow-inner: inset 0 1px 0 rgba(255, 245, 230, 0.05);
+            --shadow-inner: inset 0 1px 0 rgba(255,245,230,0.05);
             
             /* 锻造渐变系统 */
             --gradient-body: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
@@ -60,6 +60,11 @@
             --progress-ready: #4A9D78;   /* 锻造绿 - 已准备 */
             --progress-locked: #7A7262;  /* 深铁锈灰 - 未解锁 */
             --progress-active: #D99F20;  /* 熔炉金 - 进行中 */
+            
+            /* 任务卡片专用色 */
+            --task-accent: #E6B038;      /* 任务强调色 */
+            --task-check: #4A9D78;       /* 任务完成色 */
+            --task-warning: #C46818;     /* 任务警告色 */
         }
 
         * {
@@ -542,6 +547,22 @@
             border-left: 3px solid rgba(217, 159, 32, 0.15);
             padding-left: clamp(18px, 2.5vw, 24px);
         }
+        
+        /* 任务项特殊样式 */
+        .course-item.task-item {
+            border-left: 3px solid var(--task-accent);
+            padding-left: clamp(18px, 2.5vw, 24px);
+            background: rgba(230, 176, 56, 0.05);
+        }
+        
+        .course-item.task-item::before {
+            background: linear-gradient(90deg, transparent, rgba(230, 176, 56, 0.1), transparent);
+        }
+        
+        .course-item.task-item:hover {
+            border-left-color: var(--task-accent);
+            background: rgba(230, 176, 56, 0.1);
+        }
 
         .course-item::before {
             content: "";
@@ -573,6 +594,14 @@
                 0 0 15px var(--shadow-gold),
                 inset 0 1px 0 rgba(255,245,230,0.07);
         }
+        
+        .course-item.task-item.active {
+            background: rgba(230, 176, 56, 0.15);
+            border-left-color: var(--task-accent);
+            box-shadow: 
+                0 0 15px rgba(230, 176, 56, 0.2),
+                inset 0 1px 0 rgba(255,245,230,0.07);
+        }
 
         .course-item-info {
             display: flex;
@@ -586,6 +615,18 @@
             color: var(--text-main);
             font-family: var(--font-heading);
             letter-spacing: 0.4px;
+        }
+        
+        /* 任务项标题样式 */
+        .task-item .course-item-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .task-item .course-item-title::before {
+            content: "🎯";
+            font-size: 0.9em;
         }
 
         /* 移除课程时长显示 */
@@ -654,6 +695,134 @@
             width: 100%;
             height: 100%;
             min-height: 400px;
+        }
+
+        /* 任务内容区域样式 */
+        .task-content {
+            flex: 1;
+            padding: clamp(20px, 3vw, 35px);
+            overflow-y: auto;
+            background-color: var(--bg-card);
+            background-image: var(--gradient-forge);
+        }
+        
+        .task-content::-webkit-scrollbar {
+            width: 7px;
+        }
+        
+        .task-content::-webkit-scrollbar-track {
+            background: var(--metal-dark);
+            border-radius: 4px;
+            margin: 8px 0;
+        }
+        
+        .task-content::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--task-accent), var(--gold-matte));
+            border-radius: 4px;
+            box-shadow: 0 0 3px rgba(0,0,0,0.5);
+        }
+        
+        .task-header {
+            margin-bottom: clamp(20px, 3vw, 30px);
+            padding-bottom: clamp(15px, 2vw, 20px);
+            border-bottom: 2px solid var(--task-accent);
+        }
+        
+        .task-title {
+            font-size: clamp(24px, 3vw, 32px);
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .task-subtitle {
+            font-size: clamp(16px, 1.8vw, 18px);
+            color: var(--task-accent);
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+        
+        .task-section {
+            margin-bottom: clamp(20px, 2.5vw, 28px);
+        }
+        
+        .task-section-title {
+            font-size: clamp(18px, 2vw, 22px);
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: clamp(10px, 1.5vw, 15px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .task-check-title {
+            color: var(--task-check);
+        }
+        
+        .task-warning-title {
+            color: var(--task-warning);
+        }
+        
+        .task-content p {
+            font-size: clamp(15px, 1.7vw, 18px);
+            color: var(--text-main);
+            margin-bottom: clamp(10px, 1.2vw, 14px);
+            line-height: 1.8;
+        }
+        
+        .task-content ul {
+            margin-left: clamp(20px, 2.5vw, 30px);
+            margin-bottom: clamp(15px, 1.8vw, 20px);
+        }
+        
+        .task-content li {
+            font-size: clamp(15px, 1.7vw, 18px);
+            color: var(--text-main);
+            margin-bottom: clamp(8px, 1vw, 12px);
+            line-height: 1.8;
+            list-style: none;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .task-content li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--task-accent);
+            font-weight: bold;
+        }
+        
+        .task-example-box {
+            background: var(--metal-medium);
+            border: 1px solid var(--metal-border);
+            border-radius: 10px;
+            padding: clamp(15px, 2vw, 20px);
+            margin: clamp(10px, 1.5vw, 15px) 0;
+            box-shadow: var(--shadow-inner);
+        }
+        
+        .task-example-box p {
+            color: var(--text-sub);
+            font-style: italic;
+            margin-bottom: 0;
+        }
+        
+        .task-note {
+            background: rgba(196, 104, 24, 0.1);
+            border-left: 4px solid var(--task-warning);
+            padding: clamp(12px, 1.8vw, 16px);
+            border-radius: 0 8px 8px 0;
+            margin: clamp(15px, 2vw, 20px) 0;
+        }
+        
+        .task-note p {
+            color: var(--text-main);
+            font-weight: 500;
         }
 
         /* 视频信息栏 - 锻造铭牌风格 */
@@ -791,7 +960,7 @@
                     <h3 class="chapter-title">01 · 战一：夺权 <span>| Take Back Control</span></h3>
                 </div>
                 
-                <div class="course-item a-class active">
+                <div class="course-item a-class active" id="course-1">
                     <div class="course-item-info">
                         <div class="course-item-title">《抱怨转情报 | From Complaint to Intel》</div>
                         <div class="course-item-desc">A课 · 15分钟 · 认知重构</div>
@@ -802,7 +971,19 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <!-- 新增：抱怨转情报任务项 -->
+                <div class="course-item task-item" id="task-1">
+                    <div class="course-item-info">
+                        <div class="course-item-title">抱怨转情报任务</div>
+                        <div class="course-item-desc">任务 · 实战训练 · 身体情报收集</div>
+                    </div>
+                    <div class="course-item-status">
+                        <i class="fas fa-tasks"></i>
+                        任务
+                    </div>
+                </div>
+
+                <div class="course-item b-class" id="course-2">
                     <div class="course-item-info">
                         <div class="course-item-title">《静默监听 | Silent Recon》</div>
                         <div class="course-item-desc">B课 · 20分钟 · 感知训练</div>
@@ -1132,13 +1313,13 @@
 
         <!-- 右侧视频播放区域 -->
         <main class="video-content">
-            <!-- 视频播放器 - 替换为指定的iframe -->
-            <div class="video-player">
+            <!-- 视频播放器/任务内容容器 -->
+            <div id="content-display" class="video-player">
                 <iframe src="https://player.xinpianchang.com/?aid=13590200&amp;mid=yOBl4zxbBZm7aMg0" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
             </div>
 
             <!-- 视频信息和控制 -->
-            <div class="video-info">
+            <div class="video-info" id="info-display">
                 <h2 class="current-video-title">抱怨转情报 | From Complaint to Intel</h2>
                 <p class="current-video-desc">
                     本课程将帮助你将身体的抱怨转化为有价值的情报信号，停止与身体的对抗模式，
@@ -1164,5 +1345,143 @@
             </div>
         </main>
     </div>
+
+    <script>
+        // 获取DOM元素
+        const courseItems = document.querySelectorAll('.course-item');
+        const contentDisplay = document.getElementById('content-display');
+        const infoDisplay = document.getElementById('info-display');
+        
+        // 任务内容HTML
+        const taskContent = `
+            <div class="task-content">
+                <div class="task-header">
+                    <h2 class="task-title">🎯 战一任务</h2>
+                    <p class="task-subtitle">建立你的第一份「身体情报简报」</p>
+                </div>
+                
+                <div class="task-section">
+                    <h3 class="task-section-title">任务目标</h3>
+                    <p>停止碎片化抱怨，建立结构化身体情报。</p>
+                    <p>你不是在说"我不舒服"，你是在做战前汇报。</p>
+                </div>
+                
+                <div class="task-section">
+                    <h3 class="task-section-title task-check-title">✅ 任务要求（这一次，有明确标准）</h3>
+                    <p>今天，写下 1 份身体情报简报，</p>
+                    <p>并且 至少包含 3 个不同关节 / 关键部位。</p>
+                    <p>不是选你最痛的，</p>
+                    <p>而是你身体里最有存在感的 3 个位置。</p>
+                </div>
+                
+                <div class="task-section">
+                    <h3 class="task-section-title">🧱 身体情报简报格式（必须全部具备）</h3>
+                    <p>每一个部位，都要写 4 个要素：</p>
+                    <ul>
+                        <li><strong>1️⃣ 部位 / 关节名称</strong><br>（例如：颈椎、左肩、右膝、下背、踝关节）</li>
+                        <li><strong>2️⃣ 感受性质</strong><br>（酸 / 紧 / 痛 / 沉 / 卡 / 无力）</li>
+                        <li><strong>3️⃣ 强度等级</strong><br>（1–10 分，凭直觉，不用纠结）</li>
+                        <li><strong>4️⃣ 影响范围</strong><br>（训练 / 工作 / 日常动作 / 睡眠 / 情绪）</li>
+                    </ul>
+                </div>
+                
+                <div class="task-section">
+                    <h3 class="task-section-title">📌 示例（合格版本）</h3>
+                    <div class="task-example-box">
+                        <p>左肩斜方肌：酸，6/10，影响头部左转</p>
+                        <p>右膝关节：紧，4/10，下楼梯时明显</p>
+                        <p>下背部：沉，5/10，久坐后起身慢</p>
+                    </div>
+                    <p>这是一份可用情报，不是情绪宣泄。</p>
+                </div>
+                
+                <div class="task-section">
+                    <h3 class="task-section-title task-warning-title">⚠️ 三条不可触碰的铁律</h3>
+                    <ul>
+                        <li>❌ 不写原因（不是"因为我昨天练了"）</li>
+                        <li>❌ 不下判断（不是"这很糟""我老了"）</li>
+                        <li>❌ 不解决问题（今天没有修复权）</li>
+                    </ul>
+                    <div class="task-note">
+                        <p>你现在做的是——<br>建立信息系统，不是马上行动。</p>
+                    </div>
+                </div>
+                
+                <div class="task-section">
+                    <h3 class="task-section-title">🧠 为什么一定要 3 个部位？</h3>
+                    <p>因为一个点，是情绪。</p>
+                    <p>三个点，才是结构。</p>
+                    <p>当你能同时观察 3 个关节，</p>
+                    <p>你就不再被某一个不适牵着走，</p>
+                    <p>你开始站在更高的位置，看整副身体。</p>
+                    <p>这一步，是从士兵视角 → 指挥官视角的切换</p>
+                </div>
+            </div>
+        `;
+        
+        // 课程1的原始内容
+        const course1Video = `
+            <iframe src="https://player.xinpianchang.com/?aid=13590200&amp;mid=yOBl4zxbBZm7aMg0" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
+        `;
+        
+        const course1Info = `
+            <h2 class="current-video-title">抱怨转情报 | From Complaint to Intel</h2>
+            <p class="current-video-desc">
+                本课程将帮助你将身体的抱怨转化为有价值的情报信号，停止与身体的对抗模式，
+                建立客观的观察系统。通过认知重构训练，你将学会解读身体信号的真正含义，
+                为后续的身体认知重建打下坚实基础。
+            </p>
+        `;
+        
+        // 课程2（静默监听）的内容
+        const course2Video = `
+            <iframe src="https://player.xinpianchang.com/?aid=13591472&amp;mid=ro1V7E2d9alwdXAM" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
+        `;
+        
+        const course2Info = `
+            <h2 class="current-video-title">静默监听 | Silent Recon</h2>
+            <p class="current-video-desc">
+                本课程专注于感知训练，帮助你建立深度的身体静默监听系统。通过专业的感知练习，
+                你将学会关闭外界干扰，专注聆听身体内部的细微信号，提升身体感知的敏锐度和精准度，
+                为后续的身体测绘和破译工作提供坚实的感知基础。
+            </p>
+        `;
+        
+        // 为每个课程项添加点击事件
+        courseItems.forEach(item => {
+            item.addEventListener('click', function() {
+                // 移除所有active类
+                courseItems.forEach(el => el.classList.remove('active'));
+                // 给当前项添加active类
+                this.classList.add('active');
+                
+                // 根据点击的项更新右侧内容
+                if (this.id === 'task-1') {
+                    // 显示任务内容
+                    contentDisplay.innerHTML = taskContent;
+                    contentDisplay.classList.remove('video-player');
+                    infoDisplay.style.display = 'none';
+                } else if (this.id === 'course-1') {
+                    // 显示课程1内容
+                    contentDisplay.innerHTML = course1Video;
+                    contentDisplay.classList.add('video-player');
+                    infoDisplay.innerHTML = course1Info;
+                    infoDisplay.style.display = 'block';
+                } else if (this.id === 'course-2') {
+                    // 显示课程2（静默监听）内容
+                    contentDisplay.innerHTML = course2Video;
+                    contentDisplay.classList.add('video-player');
+                    infoDisplay.innerHTML = course2Info;
+                    infoDisplay.style.display = 'block';
+                } else {
+                    // 其他课程默认显示课程1的视频，标题显示对应课程名
+                    contentDisplay.innerHTML = course1Video;
+                    contentDisplay.classList.add('video-player');
+                    infoDisplay.innerHTML = `<h2 class="current-video-title">${this.querySelector('.course-item-title').textContent}</h2>`;
+                    infoDisplay.style.display = 'block';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
