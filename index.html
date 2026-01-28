@@ -61,10 +61,7 @@
             --progress-locked: #7A7262;  /* 深铁锈灰 - 未解锁 */
             --progress-active: #D99F20;  /* 熔炉金 - 进行中 */
             
-            /* 任务卡片专用色 */
-            --task-accent: #E6B038;      /* 任务强调色 */
-            --task-check: #4A9D78;       /* 任务完成色 */
-            --task-warning: #C46818;     /* 任务警告色 */
+            /* 移除任务卡片专用色 */
         }
 
         * {
@@ -548,21 +545,7 @@
             padding-left: clamp(18px, 2.5vw, 24px);
         }
         
-        /* 任务项特殊样式 */
-        .course-item.task-item {
-            border-left: 3px solid var(--task-accent);
-            padding-left: clamp(18px, 2.5vw, 24px);
-            background: rgba(230, 176, 56, 0.05);
-        }
-        
-        .course-item.task-item::before {
-            background: linear-gradient(90deg, transparent, rgba(230, 176, 56, 0.1), transparent);
-        }
-        
-        .course-item.task-item:hover {
-            border-left-color: var(--task-accent);
-            background: rgba(230, 176, 56, 0.1);
-        }
+        /* 移除任务项特殊样式 */
 
         .course-item::before {
             content: "";
@@ -595,13 +578,7 @@
                 inset 0 1px 0 rgba(255,245,230,0.07);
         }
         
-        .course-item.task-item.active {
-            background: rgba(230, 176, 56, 0.15);
-            border-left-color: var(--task-accent);
-            box-shadow: 
-                0 0 15px rgba(230, 176, 56, 0.2),
-                inset 0 1px 0 rgba(255,245,230,0.07);
-        }
+        /* 移除任务项active样式 */
 
         .course-item-info {
             display: flex;
@@ -617,17 +594,7 @@
             letter-spacing: 0.4px;
         }
         
-        /* 任务项标题样式 */
-        .task-item .course-item-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .task-item .course-item-title::before {
-            content: "🎯";
-            font-size: 0.9em;
-        }
+        /* 移除任务项标题样式 */
 
         /* 移除课程时长显示 */
         .course-item-desc {
@@ -637,6 +604,56 @@
         /* 移除未解锁状态标签 */
         .course-item-status {
             display: none;
+        }
+
+        /* 新增：任务按钮样式 - 保持锻造厂风格 */
+        .mission-button {
+            margin: clamp(8px, 1.2vw, 12px) 0 clamp(8px, 1.2vw, 12px) clamp(18px, 2.5vw, 24px);
+            padding: clamp(10px, 1.8vw, 16px);
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(217, 159, 32, 0.1) 0%, rgba(196, 138, 24, 0.05) 100%);
+            border: 1px solid rgba(217, 159, 32, 0.15);
+            color: var(--gold-metal);
+            text-decoration: none;
+            font-size: clamp(13px, 1.5vw, 15px);
+            font-weight: 600;
+            font-family: var(--font-heading);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: var(--shadow-soft), var(--shadow-inner);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,245,230,0.1), transparent);
+            transition: all 0.6s ease;
+        }
+
+        .mission-button:hover {
+            background: linear-gradient(135deg, rgba(217, 159, 32, 0.15) 0%, rgba(196, 138, 24, 0.1) 100%);
+            border-color: rgba(217, 159, 32, 0.25);
+            color: var(--gold-light);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-hard), var(--shadow-gold), var(--shadow-inner);
+        }
+
+        .mission-button:hover::before {
+            left: 100%;
+        }
+
+        .mission-button i {
+            font-size: 1.1em;
+            text-shadow: 0 0 8px var(--gold-glow);
         }
 
         /* 右侧视频区域 - 熔炉观察窗风格 */
@@ -697,138 +714,13 @@
             min-height: 400px;
         }
 
-        /* 任务内容区域样式 */
-        .task-content {
-            flex: 1;
-            padding: clamp(20px, 3vw, 35px);
-            overflow-y: auto;
-            background-color: var(--bg-card);
-            background-image: var(--gradient-forge);
-        }
-        
-        .task-content::-webkit-scrollbar {
-            width: 7px;
-        }
-        
-        .task-content::-webkit-scrollbar-track {
-            background: var(--metal-dark);
-            border-radius: 4px;
-            margin: 8px 0;
-        }
-        
-        .task-content::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--task-accent), var(--gold-matte));
-            border-radius: 4px;
-            box-shadow: 0 0 3px rgba(0,0,0,0.5);
-        }
-        
-        .task-header {
-            margin-bottom: clamp(20px, 3vw, 30px);
-            padding-bottom: clamp(15px, 2vw, 20px);
-            border-bottom: 2px solid var(--task-accent);
-        }
-        
-        .task-title {
-            font-size: clamp(24px, 3vw, 32px);
-            font-weight: 800;
-            color: var(--text-main);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .task-subtitle {
-            font-size: clamp(16px, 1.8vw, 18px);
-            color: var(--task-accent);
-            font-style: italic;
-            letter-spacing: 0.5px;
-        }
-        
-        .task-section {
-            margin-bottom: clamp(20px, 2.5vw, 28px);
-        }
-        
-        .task-section-title {
-            font-size: clamp(18px, 2vw, 22px);
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: clamp(10px, 1.5vw, 15px);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .task-check-title {
-            color: var(--task-check);
-        }
-        
-        .task-warning-title {
-            color: var(--task-warning);
-        }
-        
-        .task-content p {
-            font-size: clamp(15px, 1.7vw, 18px);
-            color: var(--text-main);
-            margin-bottom: clamp(10px, 1.2vw, 14px);
-            line-height: 1.8;
-        }
-        
-        .task-content ul {
-            margin-left: clamp(20px, 2.5vw, 30px);
-            margin-bottom: clamp(15px, 1.8vw, 20px);
-        }
-        
-        .task-content li {
-            font-size: clamp(15px, 1.7vw, 18px);
-            color: var(--text-main);
-            margin-bottom: clamp(8px, 1vw, 12px);
-            line-height: 1.8;
-            list-style: none;
-            position: relative;
-            padding-left: 25px;
-        }
-        
-        .task-content li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: var(--task-accent);
-            font-weight: bold;
-        }
-        
-        .task-example-box {
-            background: var(--metal-medium);
-            border: 1px solid var(--metal-border);
-            border-radius: 10px;
-            padding: clamp(15px, 2vw, 20px);
-            margin: clamp(10px, 1.5vw, 15px) 0;
-            box-shadow: var(--shadow-inner);
-        }
-        
-        .task-example-box p {
-            color: var(--text-sub);
-            font-style: italic;
-            margin-bottom: 0;
-        }
-        
-        .task-note {
-            background: rgba(196, 104, 24, 0.1);
-            border-left: 4px solid var(--task-warning);
-            padding: clamp(12px, 1.8vw, 16px);
-            border-radius: 0 8px 8px 0;
-            margin: clamp(15px, 2vw, 20px) 0;
-        }
-        
-        .task-note p {
-            color: var(--text-main);
-            font-weight: 500;
-        }
+        /* 移除任务内容区域样式 */
 
         /* 视频信息栏 - 锻造铭牌风格 */
         .video-info {
             padding: clamp(18px, 2.5vw, 28px);
             border-top: 1px solid rgba(217, 159, 32, 0.08);
+            display: block !important; /* 强制显示 */
         }
 
         .current-video-title {
@@ -971,17 +863,7 @@
                     </div>
                 </div>
 
-                <!-- 新增：抱怨转情报任务项 -->
-                <div class="course-item task-item" id="task-1">
-                    <div class="course-item-info">
-                        <div class="course-item-title">抱怨转情报任务</div>
-                        <div class="course-item-desc">任务 · 实战训练 · 身体情报收集</div>
-                    </div>
-                    <div class="course-item-status">
-                        <i class="fas fa-tasks"></i>
-                        任务
-                    </div>
-                </div>
+                <!-- 移除：抱怨转情报任务项 -->
 
                 <div class="course-item b-class" id="course-2">
                     <div class="course-item-info">
@@ -994,12 +876,20 @@
                     </div>
                 </div>
 
+                <!-- 新增：战一：夺权任务按钮 -->
+                <a href="https://fcndfcb39zum.feishu.cn/wiki/KXiLwBDFMirjfLk3eeWc4JCfnmb" 
+                   class="mission-button" 
+                   target="_blank">
+                    <i class="fas fa-tasks"></i>
+                    战一：夺权任务
+                </a>
+
                 <!-- 战二：测绘 -->
                 <div class="chapter-divider">
                     <h3 class="chapter-title">02 · 战二：测绘 <span>| Map Your Terrain</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-3">
                     <div class="course-item-info">
                         <div class="course-item-title">《绘制精力图 | Chart Your Energy》</div>
                         <div class="course-item-desc">A课 · 18分钟 · 数据收集</div>
@@ -1010,7 +900,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-4">
                     <div class="course-item-info">
                         <div class="course-item-title">《辨别能量质地 | Feel Your Fuel》</div>
                         <div class="course-item-desc">B课 · 22分钟 · 体感识别</div>
@@ -1026,7 +916,7 @@
                     <h3 class="chapter-title">03 · 战三：破译 <span>| Decode the Signals</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-5">
                     <div class="course-item-info">
                         <div class="course-item-title">《建立疼痛警报 | Set Pain Alerts》</div>
                         <div class="course-item-desc">A课 · 16分钟 · 预警系统</div>
@@ -1037,7 +927,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-6">
                     <div class="course-item-info">
                         <div class="course-item-title">《与疼痛对峙 | Face the Pain》</div>
                         <div class="course-item-desc">B课 · 25分钟 · 直面训练</div>
@@ -1059,7 +949,7 @@
                     <h3 class="chapter-title">04 · 战四：筑基 <span>| Lay the Foundation</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-7">
                     <div class="course-item-info">
                         <div class="course-item-title">《重置呼吸 | Reset Your Breath》</div>
                         <div class="course-item-desc">A课 · 20分钟 · 呼吸训练</div>
@@ -1070,7 +960,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-8">
                     <div class="course-item-info">
                         <div class="course-item-title">《感受呼吸空间 | Expand Your Breath》</div>
                         <div class="course-item-desc">B课 · 24分钟 · 空间拓展</div>
@@ -1086,7 +976,7 @@
                     <h3 class="chapter-title">05 · 战五：立架 <span>| Build the Frame</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-9">
                     <div class="course-item-info">
                         <div class="course-item-title">《校准站姿 | Align Your Stance》</div>
                         <div class="course-item-desc">A课 · 18分钟 · 姿态调整</div>
@@ -1097,7 +987,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-10">
                     <div class="course-item-info">
                         <div class="course-item-title">《寻找挺拔感 | Find Your Height》</div>
                         <div class="course-item-desc">B课 · 22分钟 · 核心支撑</div>
@@ -1113,7 +1003,7 @@
                     <h3 class="chapter-title">06 · 战六：焊接 <span>| Forge the Connection</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-11">
                     <div class="course-item-info">
                         <div class="course-item-title">《检测发力链 | Test Your Power Chain》</div>
                         <div class="course-item-desc">A课 · 20分钟 · 链路测试</div>
@@ -1124,7 +1014,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-12">
                     <div class="course-item-info">
                         <div class="course-item-title">《体验整体发力 | Move as One》</div>
                         <div class="course-item-desc">B课 · 28分钟 · 整合训练</div>
@@ -1146,7 +1036,7 @@
                     <h3 class="chapter-title">07 · 战七：修复 <span>| Active Recovery</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-13">
                     <div class="course-item-info">
                         <div class="course-item-title">《主动恢复清单 | The Recovery Protocol》</div>
                         <div class="course-item-desc">A课 · 20分钟 · 恢复方案</div>
@@ -1157,7 +1047,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-14">
                     <div class="course-item-info">
                         <div class="course-item-title">《深度放松术 | Deep Release》</div>
                         <div class="course-item-desc">B课 · 30分钟 · 深度放松</div>
@@ -1173,7 +1063,7 @@
                     <h3 class="chapter-title">08 · 战八：淬炼 <span>| Forge Resilience</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-15">
                     <div class="course-item-info">
                         <div class="course-item-title">《压力炼金术 | Alchemize Stress》</div>
                         <div class="course-item-desc">A课 · 22分钟 · 压力转化</div>
@@ -1184,7 +1074,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-16">
                     <div class="course-item-info">
                         <div class="course-item-title">《卸载情绪重量 | Unload the Weight》</div>
                         <div class="course-item-desc">B课 · 25分钟 · 情绪释放</div>
@@ -1200,7 +1090,7 @@
                     <h3 class="chapter-title">09 · 战九：熔炉 <span>| The Repair Furnace</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-17">
                     <div class="course-item-info">
                         <div class="course-item-title">《睡眠军规 | The Sleep Protocol》</div>
                         <div class="course-item-desc">A课 · 20分钟 · 睡眠系统</div>
@@ -1211,7 +1101,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-18">
                     <div class="course-item-info">
                         <div class="course-item-title">《关机仪式 | The Shutdown Ritual》</div>
                         <div class="course-item-desc">B课 · 28分钟 · 收尾训练</div>
@@ -1233,7 +1123,7 @@
                     <h3 class="chapter-title">10 · 战十：佩戴 <span>| Wear Your Armor</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-19">
                     <div class="course-item-info">
                         <div class="course-item-title">《存在感蓝图 | The Presence Blueprint》</div>
                         <div class="course-item-desc">A课 · 25分钟 · 存在构建</div>
@@ -1244,7 +1134,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-20">
                     <div class="course-item-info">
                         <div class="course-item-title">《气场内测 | Calibrate Your Vibe》</div>
                         <div class="course-item-desc">B课 · 22分钟 · 气场调整</div>
@@ -1260,7 +1150,7 @@
                     <h3 class="chapter-title">11 · 战十一：极限 <span>| Stress Test</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-21">
                     <div class="course-item-info">
                         <div class="course-item-title">《低电量手册 | The Low-Power Manual》</div>
                         <div class="course-item-desc">A课 · 28分钟 · 低能应对</div>
@@ -1271,7 +1161,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-22">
                     <div class="course-item-info">
                         <div class="course-item-title">《韧性锚点 | The Resilience Anchor》</div>
                         <div class="course-item-desc">B课 · 30分钟 · 锚点建立</div>
@@ -1287,7 +1177,7 @@
                     <h3 class="chapter-title">12 · 战十二：出厂 <span>| Graduation</span></h3>
                 </div>
                 
-                <div class="course-item a-class">
+                <div class="course-item a-class" id="course-23">
                     <div class="course-item-info">
                         <div class="course-item-title">《编纂身体法典 | Write Your Codex》</div>
                         <div class="course-item-desc">A课 · 30分钟 · 系统整合</div>
@@ -1298,7 +1188,7 @@
                     </div>
                 </div>
 
-                <div class="course-item b-class">
+                <div class="course-item b-class" id="course-24">
                     <div class="course-item-info">
                         <div class="course-item-title">《内心加冕 | The Inner Coronation》</div>
                         <div class="course-item-desc">B课 · 35分钟 · 最终整合</div>
@@ -1347,140 +1237,93 @@
     </div>
 
     <script>
-        // 获取DOM元素
-        const courseItems = document.querySelectorAll('.course-item');
-        const contentDisplay = document.getElementById('content-display');
-        const infoDisplay = document.getElementById('info-display');
-        
-        // 任务内容HTML
-        const taskContent = `
-            <div class="task-content">
-                <div class="task-header">
-                    <h2 class="task-title">🎯 战一任务</h2>
-                    <p class="task-subtitle">建立你的第一份「身体情报简报」</p>
-                </div>
+        // 等待DOM完全加载
+        document.addEventListener('DOMContentLoaded', function() {
+            // 获取DOM元素
+            const courseItems = document.querySelectorAll('.course-item');
+            const contentDisplay = document.getElementById('content-display');
+            const infoDisplay = document.getElementById('info-display');
+            
+            // 课程1的原始内容
+            const course1Video = `
+                <iframe src="https://player.xinpianchang.com/?aid=13590200&amp;mid=yOBl4zxbBZm7aMg0" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
+            `;
+            
+            const course1Info = `
+                <h2 class="current-video-title">抱怨转情报 | From Complaint to Intel</h2>
+                <p class="current-video-desc">
+                    本课程将帮助你将身体的抱怨转化为有价值的情报信号，停止与身体的对抗模式，
+                    建立客观的观察系统。通过认知重构训练，你将学会解读身体信号的真正含义，
+                    为后续的身体认知重建打下坚实基础。
+                </p>
+            `;
+            
+            // 课程2（静默监听）的内容
+            const course2Video = `
+                <iframe src="https://player.xinpianchang.com/?aid=13591472&amp;mid=ro1V7E2d9alwdXAM" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
+            `;
+            
+            const course2Info = `
+                <h2 class="current-video-title">静默监听 | Silent Recon</h2>
+                <p class="current-video-desc">
+                    本课程专注于感知训练，帮助你建立深度的身体静默监听系统。通过专业的感知练习，
+                    你将学会关闭外界干扰，专注聆听身体内部的细微信号，提升身体感知的敏锐度和精准度，
+                    为后续的身体测绘和破译工作提供坚实的感知基础。
+                </p>
+            `;
+            
+            // 为每个课程项添加点击事件
+            courseItems.forEach(item => {
+                // 确保每个课程项都有点击指针样式
+                item.style.cursor = 'pointer';
                 
-                <div class="task-section">
-                    <h3 class="task-section-title">任务目标</h3>
-                    <p>停止碎片化抱怨，建立结构化身体情报。</p>
-                    <p>你不是在说"我不舒服"，你是在做战前汇报。</p>
-                </div>
-                
-                <div class="task-section">
-                    <h3 class="task-section-title task-check-title">✅ 任务要求（这一次，有明确标准）</h3>
-                    <p>今天，写下 1 份身体情报简报，</p>
-                    <p>并且 至少包含 3 个不同关节 / 关键部位。</p>
-                    <p>不是选你最痛的，</p>
-                    <p>而是你身体里最有存在感的 3 个位置。</p>
-                </div>
-                
-                <div class="task-section">
-                    <h3 class="task-section-title">🧱 身体情报简报格式（必须全部具备）</h3>
-                    <p>每一个部位，都要写 4 个要素：</p>
-                    <ul>
-                        <li><strong>1️⃣ 部位 / 关节名称</strong><br>（例如：颈椎、左肩、右膝、下背、踝关节）</li>
-                        <li><strong>2️⃣ 感受性质</strong><br>（酸 / 紧 / 痛 / 沉 / 卡 / 无力）</li>
-                        <li><strong>3️⃣ 强度等级</strong><br>（1–10 分，凭直觉，不用纠结）</li>
-                        <li><strong>4️⃣ 影响范围</strong><br>（训练 / 工作 / 日常动作 / 睡眠 / 情绪）</li>
-                    </ul>
-                </div>
-                
-                <div class="task-section">
-                    <h3 class="task-section-title">📌 示例（合格版本）</h3>
-                    <div class="task-example-box">
-                        <p>左肩斜方肌：酸，6/10，影响头部左转</p>
-                        <p>右膝关节：紧，4/10，下楼梯时明显</p>
-                        <p>下背部：沉，5/10，久坐后起身慢</p>
-                    </div>
-                    <p>这是一份可用情报，不是情绪宣泄。</p>
-                </div>
-                
-                <div class="task-section">
-                    <h3 class="task-section-title task-warning-title">⚠️ 三条不可触碰的铁律</h3>
-                    <ul>
-                        <li>❌ 不写原因（不是"因为我昨天练了"）</li>
-                        <li>❌ 不下判断（不是"这很糟""我老了"）</li>
-                        <li>❌ 不解决问题（今天没有修复权）</li>
-                    </ul>
-                    <div class="task-note">
-                        <p>你现在做的是——<br>建立信息系统，不是马上行动。</p>
-                    </div>
-                </div>
-                
-                <div class="task-section">
-                    <h3 class="task-section-title">🧠 为什么一定要 3 个部位？</h3>
-                    <p>因为一个点，是情绪。</p>
-                    <p>三个点，才是结构。</p>
-                    <p>当你能同时观察 3 个关节，</p>
-                    <p>你就不再被某一个不适牵着走，</p>
-                    <p>你开始站在更高的位置，看整副身体。</p>
-                    <p>这一步，是从士兵视角 → 指挥官视角的切换</p>
-                </div>
-            </div>
-        `;
-        
-        // 课程1的原始内容
-        const course1Video = `
-            <iframe src="https://player.xinpianchang.com/?aid=13590200&amp;mid=yOBl4zxbBZm7aMg0" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
-        `;
-        
-        const course1Info = `
-            <h2 class="current-video-title">抱怨转情报 | From Complaint to Intel</h2>
-            <p class="current-video-desc">
-                本课程将帮助你将身体的抱怨转化为有价值的情报信号，停止与身体的对抗模式，
-                建立客观的观察系统。通过认知重构训练，你将学会解读身体信号的真正含义，
-                为后续的身体认知重建打下坚实基础。
-            </p>
-        `;
-        
-        // 课程2（静默监听）的内容
-        const course2Video = `
-            <iframe src="https://player.xinpianchang.com/?aid=13591472&amp;mid=ro1V7E2d9alwdXAM" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
-        `;
-        
-        const course2Info = `
-            <h2 class="current-video-title">静默监听 | Silent Recon</h2>
-            <p class="current-video-desc">
-                本课程专注于感知训练，帮助你建立深度的身体静默监听系统。通过专业的感知练习，
-                你将学会关闭外界干扰，专注聆听身体内部的细微信号，提升身体感知的敏锐度和精准度，
-                为后续的身体测绘和破译工作提供坚实的感知基础。
-            </p>
-        `;
-        
-        // 为每个课程项添加点击事件
-        courseItems.forEach(item => {
-            item.addEventListener('click', function() {
-                // 移除所有active类
-                courseItems.forEach(el => el.classList.remove('active'));
-                // 给当前项添加active类
-                this.classList.add('active');
-                
-                // 根据点击的项更新右侧内容
-                if (this.id === 'task-1') {
-                    // 显示任务内容
-                    contentDisplay.innerHTML = taskContent;
-                    contentDisplay.classList.remove('video-player');
-                    infoDisplay.style.display = 'none';
-                } else if (this.id === 'course-1') {
-                    // 显示课程1内容
-                    contentDisplay.innerHTML = course1Video;
-                    contentDisplay.classList.add('video-player');
-                    infoDisplay.innerHTML = course1Info;
+                item.addEventListener('click', function(e) {
+                    // 阻止事件冒泡
+                    e.stopPropagation();
+                    
+                    // 移除所有active类
+                    courseItems.forEach(el => el.classList.remove('active'));
+                    // 给当前项添加active类
+                    this.classList.add('active');
+                    
+                    // 控制台调试输出
+                    console.log('点击了课程:', this.id, this.querySelector('.course-item-title').textContent);
+                    
+                    // 根据点击的项更新右侧内容
+                    if (this.id === 'course-1') {
+                        // 显示课程1内容
+                        contentDisplay.innerHTML = course1Video;
+                        contentDisplay.classList.add('video-player');
+                        infoDisplay.innerHTML = course1Info;
+                    } else if (this.id === 'course-2') {
+                        // 显示课程2（静默监听）内容
+                        contentDisplay.innerHTML = course2Video;
+                        contentDisplay.classList.add('video-player');
+                        infoDisplay.innerHTML = course2Info;
+                    } else {
+                        // 其他课程显示课程1的视频，标题显示对应课程名
+                        contentDisplay.innerHTML = course1Video;
+                        contentDisplay.classList.add('video-player');
+                        const title = this.querySelector('.course-item-title').textContent;
+                        infoDisplay.innerHTML = `
+                            <h2 class="current-video-title">${title}</h2>
+                            <p class="current-video-desc">
+                                本课程内容暂未开放，敬请期待。完成前面的课程后，此内容将自动解锁。
+                            </p>
+                        `;
+                    }
+                    
+                    // 确保内容区域可见
+                    contentDisplay.style.display = 'flex';
                     infoDisplay.style.display = 'block';
-                } else if (this.id === 'course-2') {
-                    // 显示课程2（静默监听）内容
-                    contentDisplay.innerHTML = course2Video;
-                    contentDisplay.classList.add('video-player');
-                    infoDisplay.innerHTML = course2Info;
-                    infoDisplay.style.display = 'block';
-                } else {
-                    // 其他课程默认显示课程1的视频，标题显示对应课程名
-                    contentDisplay.innerHTML = course1Video;
-                    contentDisplay.classList.add('video-player');
-                    infoDisplay.innerHTML = `<h2 class="current-video-title">${this.querySelector('.course-item-title').textContent}</h2>`;
-                    infoDisplay.style.display = 'block';
-                }
+                    
+                    // 滚动到视频区域（可选）
+                    contentDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
             });
+            
+            // 测试：确保初始内容正确显示
+            console.log('页面加载完成，课程项数量:', courseItems.length);
         });
     </script>
 </body>
