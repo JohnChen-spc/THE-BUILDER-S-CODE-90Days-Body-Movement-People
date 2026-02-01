@@ -911,6 +911,14 @@
                     </div>
                 </div>
 
+                <!-- 新增：战二：测绘任务按钮 -->
+                <a href="https://fcndfcb39zum.feishu.cn/wiki/M4cfwi53HiMu2zkD5rdcO2Crnqb" 
+                   class="mission-button" 
+                   target="_blank">
+                    <i class="fas fa-tasks"></i>
+                    战二：测绘任务
+                </a>
+
                 <!-- 战三：破译 -->
                 <div class="chapter-divider">
                     <h3 class="chapter-title">03 · 战三：破译 <span>| Decode the Signals</span></h3>
@@ -1272,6 +1280,34 @@
                 </p>
             `;
             
+            // 课程3（绘制精力图）的内容 - 新增
+            const course3Video = `
+                <iframe src="https://player.xinpianchang.com/?aid=13593246&amp;mid=KdRx7b0PWE94b2N3" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
+            `;
+            
+            const course3Info = `
+                <h2 class="current-video-title">绘制精力图 | Chart Your Energy</h2>
+                <p class="current-video-desc">
+                    本课程专注于数据收集训练，帮助你建立系统化的精力监测体系。通过科学的记录方法，
+                    你将学会绘制个人精力变化图谱，识别精力波动规律，为精准调整生活方式和训练计划
+                    提供数据支撑，实现能量的高效管理。
+                </p>
+            `;
+            
+            // 课程4（辨别能量质地）的内容 - 新增（使用你指定的链接）
+            const course4Video = `
+                <iframe src="https://player.xinpianchang.com/?aid=13595079&amp;mid=rVo9wyN0ddW4l5PG" allowfullscreen="" allow="fullscreen" frameborder="0" style="border: medium; width: 100%; height: 100%; min-height: 400px;"></iframe>
+            `;
+            
+            const course4Info = `
+                <h2 class="current-video-title">辨别能量质地 | Feel Your Fuel</h2>
+                <p class="current-video-desc">
+                    本课程专注于体感识别训练，帮助你精准辨别不同类型的能量质地，理解身体能量的
+                    流动规律和转化特性。通过专业的体感练习，你将学会区分优质能量与消耗性能量，
+                    掌握能量优化的核心方法，为高效利用身体能量打下基础。
+                </p>
+            `;
+            
             // 为每个课程项添加点击事件
             courseItems.forEach(item => {
                 // 确保每个课程项都有点击指针样式
@@ -1300,6 +1336,16 @@
                         contentDisplay.innerHTML = course2Video;
                         contentDisplay.classList.add('video-player');
                         infoDisplay.innerHTML = course2Info;
+                    } else if (this.id === 'course-3') {
+                        // 显示课程3（绘制精力图）内容
+                        contentDisplay.innerHTML = course3Video;
+                        contentDisplay.classList.add('video-player');
+                        infoDisplay.innerHTML = course3Info;
+                    } else if (this.id === 'course-4') {
+                        // 显示课程4（辨别能量质地）内容
+                        contentDisplay.innerHTML = course4Video;
+                        contentDisplay.classList.add('video-player');
+                        infoDisplay.innerHTML = course4Info;
                     } else {
                         // 其他课程显示课程1的视频，标题显示对应课程名
                         contentDisplay.innerHTML = course1Video;
